@@ -31,10 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         title: const Text('My App'),
         backgroundColor: Colors.blue,
       ),
+      */
       body: IndexedStack(
         index: _currentIndex,
         children: _pages,
