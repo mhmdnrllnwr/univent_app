@@ -1,0 +1,29 @@
+name: univent_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  salomon_bottom_bar: ^3.3.2  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/image1.jpg
+    - assets/image2.jpg
+    - assets/image3.jpg
+    - assets/image4.jpg
+
+  
+
