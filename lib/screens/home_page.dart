@@ -102,7 +102,9 @@ final List<String> _images = [
   'assets/image3.jpg',
   'assets/image4.jpg',
   'assets/image5.jpg',
+  'assets/image6.jpg',
   'assets/image7.jpg',
+  'assets/image8.jpg',
   'assets/image9.jpg',
   'assets/image10.jpg',
   // Add other image paths as needed
