@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'signin_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -35,6 +36,11 @@ class ProfilePage extends StatelessWidget {
               },
               onLoginPressed: () {
                 // Define functionality for Login button
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SignInPage(),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 24),

@@ -4,7 +4,6 @@ import 'home_page.dart';
 import 'favourite_page.dart';
 import 'search_page.dart';
 import 'profile_page.dart';
-import 'signin_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const FavouritePage(),
     SearchPage(),
     ProfilePage(),
-    SignInPage(),
   ];
 
   void _onTabTapped(int index) {

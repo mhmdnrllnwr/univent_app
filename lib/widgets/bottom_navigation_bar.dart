@@ -34,11 +34,6 @@ class BottomNavigation extends StatelessWidget {
           title: const Text("Profile", style: TextStyle(fontSize: 16)),
           selectedColor: Colors.purple,
         ),
-        SalomonBottomBarItem(
-          icon: const Icon(Icons.key, size: 30),
-          title: const Text("Sign In", style: TextStyle(fontSize: 16)),
-          selectedColor: const Color.fromARGB(255, 14, 109, 187),
-        ),
       ],
     );
   }

@@ -128,14 +128,6 @@ class __FormContentState extends State<_FormContent> {
                       ? Icons.visibility_off
                       : Icons.visibility),
                   onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      // Navigate to the Home Page
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()),
-                      );
-                    }
                     //setState(() {
                     //  _isPasswordVisible = !_isPasswordVisible;
                     //});
