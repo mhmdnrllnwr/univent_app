@@ -10,11 +10,15 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 500),
-          child: ListView.builder(
+          // create list view with two columns
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 8,
+              mainAxisSpacing: 8,
+            ),
             itemCount: _images.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ImageCard(index: index);
-            },
+            itemBuilder: (context, index) => ImageCard(index: index),
           ),
         ),
       ),
@@ -45,7 +49,6 @@ class ImageCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Image.asset(
                     _images[index],
-                    height: 120,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -95,8 +98,12 @@ class SecondPage extends StatelessWidget {
 // Example list of images, you can customize or replace these URLs
 final List<String> _images = [
   'assets/image1.jpg',
-  'assets/image2.png',
+  'assets/image2.jpg',
   'assets/image3.jpg',
-  'assets/image4.png',
+  'assets/image4.jpg',
+  'assets/image5.jpg',
+  'assets/image7.jpg',
+  'assets/image9.jpg',
+  'assets/image10.jpg',
   // Add other image paths as needed
 ];
