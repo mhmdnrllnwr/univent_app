@@ -8,6 +8,15 @@ class SignInPage extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign In'),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            Navigator.pop(context); // Return to the previous page
+          },
+        ),
+      ),
       body: Center(
         child: isSmallScreen
             ? Column(
