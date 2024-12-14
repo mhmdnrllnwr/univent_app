@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:univent_app/screens/create_ev.dart';
 import '../widgets/bottom_navigation_bar.dart';
 import 'home_page.dart';
 import 'favourite_page.dart';
 import 'search_page.dart';
 import 'profile_page.dart';
+import 'create_ev.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const FavouritePage(),
     SearchPage(),
     ProfilePage(),
+    CreateEvent(),
   ];
 
   void _onTabTapped(int index) {
