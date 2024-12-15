@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum EventFormat { online, physical }
+
 class CreateEvent extends StatefulWidget {
   const CreateEvent({super.key});
 
@@ -18,6 +20,7 @@ class _CreateEventState extends State<CreateEvent> {
 
   String? _selectedCategory; // Dropdown value
   bool _isOnline = false; // Checkbox for online events
+  EventFormat formatView = EventFormat.physical;
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +108,90 @@ class _CreateEventState extends State<CreateEvent> {
                   validator: (value) =>
                       value == null ? 'Please select a category' : null,
                 ),
+                const SizedBox(height: 16),
+                const Text(
+                  "Choose Event Format",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                SegmentedButton<EventFormat>(
+                  segments: const <ButtonSegment<EventFormat>>[
+                    ButtonSegment<EventFormat>(
+                      value: EventFormat.physical,
+                      label: Text('Physical'),
+                      icon: Icon(Icons.location_on),
+                    ),
+                    ButtonSegment<EventFormat>(
+                      value: EventFormat.online,
+                      label: Text('Online'),
+                      icon: Icon(Icons.wifi),
+                    ),
+                  ],
+                  selected: <EventFormat>{formatView},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                      if (states.contains(MaterialState.selected)) {
+                        return Colors.blue
+                            .shade100; // Highlight color for selected segment
+                      }
+                      return Colors.transparent; // Default color
+                    }),
+                    side: MaterialStateProperty.all(
+                        const BorderSide(color: Colors.blue, width: 1.5)),
+                    foregroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                      return states.contains(MaterialState.selected)
+                          ? Colors.blue.shade900
+                          : Colors.black87;
+                    }),
+                  ),
+                  onSelectionChanged: (Set<EventFormat> newSelection) {
+                    setState(() {
+                      formatView = newSelection.first;
+                    });
+                  },
+                ),
+                const SizedBox(height: 16),
+
+                // Conditional TextField based on event format
+                if (formatView == EventFormat.physical) ...[
+                  const Text(
+                    "Venue",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  TextFormField(
+                    controller: _eventLocationController,
+                    decoration: const InputDecoration(
+                      hintText: "Enter event venue",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the event venue';
+                      }
+                      return null;
+                    },
+                  ),
+                ] else if (formatView == EventFormat.online) ...[
+                  const Text(
+                    "Event Link",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  TextFormField(
+                    controller: _eventLocationController,
+                    decoration: const InputDecoration(
+                      hintText: "Enter event link",
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the event link';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
                 const SizedBox(height: 16),
                 CheckboxListTile(
                   value: _isOnline,
