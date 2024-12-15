@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 enum EventFormat { online, physical }
 
@@ -21,6 +23,7 @@ class _CreateEventState extends State<CreateEvent> {
   String? _selectedCategory; // Dropdown value
   bool _isOnline = false; // Checkbox for online events
   EventFormat formatView = EventFormat.physical;
+  XFile? _selectedImage; // Variable to hold the selected image
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +195,26 @@ class _CreateEventState extends State<CreateEvent> {
                     },
                   ),
                 ],
+
+                const SizedBox(height: 16),
+                const Text(
+                  "Event Poster",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Center(
+                  child: _selectedImage == null
+                      ? const Text("No image selected")
+                      : Image.file(File(_selectedImage!.path)),
+                ),
+                const SizedBox(height: 8),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _pickImage,
+                    child: const Text("Select Image"),
+                  ),
+                ),
+
                 const SizedBox(height: 16),
                 CheckboxListTile(
                   value: _isOnline,
@@ -228,6 +251,22 @@ class _CreateEventState extends State<CreateEvent> {
         ),
       ),
     );
+  }
+
+  // Method to pick an image
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        setState(() {
+          _selectedImage = image;
+        });
+      }
+    } catch (e) {
+      // Handle error
+      print("Error picking image: $e");
+    }
   }
 
   // Function to select a date
