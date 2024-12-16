@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   salomon_bottom_bar: ^3.3.2  
   image_picker: ^0.8.4+4
+  qr_flutter: ^4.1.0
+
   
 dev_dependencies:
   flutter_test:

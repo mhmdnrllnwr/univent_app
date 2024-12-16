@@ -6,6 +6,7 @@ import 'favourite_page.dart';
 import 'search_page.dart';
 import 'profile_page.dart';
 import 'create_ev.dart';
+import 'qr_page_ui.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = [
     const HomePage(),
     const FavouritePage(),
-    SearchPage(),
+    //SearchPage(),
+    GenerateQRCode(),
     ProfilePage(),
     CreateEvent(),
   ];
