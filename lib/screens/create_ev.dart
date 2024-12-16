@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import '../widgets/event_form_widgets.dart';
 
 enum EventFormat { online, physical }
 
@@ -40,16 +41,10 @@ class _CreateEventState extends State<CreateEvent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Event Name",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                TextFormField(
+                EventTextField(
+                  label: "Event Name",
                   controller: _eventNameController,
-                  decoration: const InputDecoration(
-                    hintText: "Enter event name",
-                    border: OutlineInputBorder(),
-                  ),
+                  hintText: "Enter event name",
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the event name';
@@ -58,58 +53,24 @@ class _CreateEventState extends State<CreateEvent> {
                   },
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "Date",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                TextFormField(
+                EventDateField(
                   controller: _eventDateController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    hintText: "Select event date",
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context),
-                    ),
-                    border: const OutlineInputBorder(),
-                  ),
+                  selectDate: _selectDate,
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "Location",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                TextFormField(
+                EventTextField(
+                  label: "Location",
                   controller: _eventLocationController,
-                  decoration: const InputDecoration(
-                    hintText: "Enter event location",
-                    border: OutlineInputBorder(),
-                  ),
+                  hintText: "Enter event location",
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  "Category",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                DropdownButtonFormField<String>(
-                  value: _selectedCategory,
-                  items: ["Workshop", "Conference", "Webinar", "Meetup"]
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
-                      .toList(),
+                EventDropdownField(
+                  selectedCategory: _selectedCategory,
                   onChanged: (value) {
                     setState(() {
                       _selectedCategory = value;
                     });
                   },
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Select a category",
-                  ),
-                  validator: (value) =>
-                      value == null ? 'Please select a category' : null,
                 ),
                 const SizedBox(height: 16),
                 const Text(
@@ -156,37 +117,23 @@ class _CreateEventState extends State<CreateEvent> {
                   },
                 ),
                 const SizedBox(height: 16),
-
-                // Conditional TextField based on event format
-                if (formatView == EventFormat.physical) ...[
-                  const Text(
-                    "Venue",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  TextFormField(
+                if (formatView == EventFormat.physical)
+                  EventTextField(
+                    label: "Venue",
                     controller: _eventLocationController,
-                    decoration: const InputDecoration(
-                      hintText: "Enter event venue",
-                      border: OutlineInputBorder(),
-                    ),
+                    hintText: "Enter event venue",
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter the event venue';
                       }
                       return null;
                     },
-                  ),
-                ] else if (formatView == EventFormat.online) ...[
-                  const Text(
-                    "Event Link",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  TextFormField(
+                  )
+                else if (formatView == EventFormat.online)
+                  EventTextField(
+                    label: "Event Link",
                     controller: _eventLocationController,
-                    decoration: const InputDecoration(
-                      hintText: "Enter event link",
-                      border: OutlineInputBorder(),
-                    ),
+                    hintText: "Enter event link",
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter the event link';
@@ -194,27 +141,11 @@ class _CreateEventState extends State<CreateEvent> {
                       return null;
                     },
                   ),
-                ],
-
                 const SizedBox(height: 16),
-                const Text(
-                  "Event Poster",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                EventImagePicker(
+                  selectedImage: _selectedImage,
+                  pickImage: _pickImage,
                 ),
-                const SizedBox(height: 8),
-                Center(
-                  child: _selectedImage == null
-                      ? const Text("No image selected")
-                      : Image.file(File(_selectedImage!.path)),
-                ),
-                const SizedBox(height: 8),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _pickImage,
-                    child: const Text("Select Image"),
-                  ),
-                ),
-
                 const SizedBox(height: 16),
                 CheckboxListTile(
                   value: _isOnline,
